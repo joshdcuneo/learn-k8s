@@ -1,0 +1,4 @@
+FROM node
+ADD index.mjs /index.mjs
+
+CMD ["node", "index.mjs"]
