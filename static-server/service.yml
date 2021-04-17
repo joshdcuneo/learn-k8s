@@ -6,7 +6,7 @@ spec:
   type: LoadBalancer
   sessionAffinity: ClientIP
   ports:
-    - port: 4444
+    - port: 80
       targetPort: http
       name: http
   selector:
