@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: static-server
+data:
+  default.conf: |
+    server {
+      listen 80 default_server;
+      server_name _;
+
+      root /var/www/html/static-server;
+
+      location / {
+        index index.html;
+      }
+    }

@@ -16,8 +16,11 @@ spec:
       - image: nginx
         name: web-server
         volumeMounts:
+        - name: web-server-config
+          readOnly: true
+          mountPath: /etc/nginx/conf.d
         - name: html
-          mountPath: /usr/share/nginx/html
+          mountPath: /var/www/html
           readOnly: true
         ports:
         - containerPort: 80
@@ -57,3 +60,10 @@ spec:
             cpu: "500m"
       volumes:
       - name: html
+      - name: web-server-config
+        configMap:
+          name: static-server
+          items:
+            - key: default.conf
+              path: default.conf
+
