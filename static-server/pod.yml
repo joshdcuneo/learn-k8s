@@ -4,7 +4,7 @@ metadata:
   name: static-server
 spec:
   containers:
-  - image: nginx:alpine
+  - image: nginx
     name: web-server
     volumeMounts:
     - name: html
@@ -13,9 +13,25 @@ spec:
     ports:
     - containerPort: 80
       protocol: TCP
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+  - image: openweb/git-sync
+    name: git-sync
+    volumeMounts:
+    - name: html
+      mountPath: /git
+    env:
+      - name: GIT_SYNC_REPO
+        value: https://github.com/joshdcuneo/learn-k8s.git
+      - name: GIT_SYNC_DEST
+        value: /git
+      - name: GIT_SYNC_BRANCH
+        value: master
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
   volumes:
   - name: html
-    gitRepo:
-      repository: https://github.com/joshdcuneo/learn-k8s.git
-      revision: master
-      directory: .
