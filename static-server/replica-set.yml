@@ -43,17 +43,9 @@ spec:
         volumeMounts:
         - name: html
           mountPath: /git
-        env:
-        - name: GIT_SYNC_REPO
-          value: https://github.com/joshdcuneo/learn-k8s.git
-        - name: GIT_SYNC_DEST
-          value: /git
-        - name: GIT_SYNC_BRANCH
-          value: master
-        - name: GIT_SYNC_REV
-          value: FETCH_HEAD
-        - name: GIT_SYNC_WAIT
-          value: "10"
+        envFrom:
+          - configMapRef:
+              name: git-sync-config
         resources:
           limits:
             memory: "128Mi"
@@ -62,7 +54,7 @@ spec:
       - name: html
       - name: web-server-config
         configMap:
-          name: static-server
+          name: web-server-config
           items:
             - key: default.conf
               path: default.conf

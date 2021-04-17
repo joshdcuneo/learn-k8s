@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-sync-config
+data:
+  GIT_SYNC_REPO: https://github.com/joshdcuneo/learn-k8s.git
+  GIT_SYNC_DEST: /git
+  GIT_SYNC_BRANCH: master
+  GIT_SYNC_REV: FETCH_HEAD
+  GIT_SYNC_WAIT: "10"
